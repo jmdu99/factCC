@@ -2,12 +2,18 @@
 # Evaluate FactCC model
 
 # UPDATE PATHS BEFORE RUNNING SCRIPT
-export CODE_PATH= # absolute path to modeling directory
-export DATA_PATH= # absolute path to data directory
-export CKPT_PATH= # absolute path to model checkpoint
+export CODE_PATH=/home/mrshu/factCC/modeling
+export CKPT_PATH=/home/mrshu/transformers/examples/research_projects/seq2seq-distillation/factcc-checkpoint
 
 export TASK_NAME=factcc_annotated
 export MODEL_NAME=bert-base-uncased
+
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <data_path>"
+    exit 1
+fi
+
+DATA_PATH=$1
 
 python3 $CODE_PATH/run.py \
   --task_name $TASK_NAME \
@@ -21,3 +27,4 @@ python3 $CODE_PATH/run.py \
   --model_name_or_path $MODEL_NAME \
   --data_dir $DATA_PATH \
   --output_dir $CKPT_PATH
+
